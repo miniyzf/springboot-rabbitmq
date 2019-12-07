@@ -6,7 +6,7 @@ package com.yzf.demo.rabbitmq;
  * @author Administrator
  * @date 2019/12/5
  */
-public class RabbitCommon {
+public class MQConst {
 
     /**
      * 简单

@@ -1,6 +1,6 @@
 package com.yzf.demo.rabbitmq.ptoc;
 
-import com.yzf.demo.rabbitmq.RabbitCommon;
+import com.yzf.demo.rabbitmq.MQConst;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public class QueueRabbitProducer {
     private RabbitTemplate rabbitTemplate;
 
     public void sendQueue(String message){
-        this.rabbitTemplate.convertAndSend(RabbitCommon.QUEUE_ZERO,message);
+        this.rabbitTemplate.convertAndSend(MQConst.QUEUE_ZERO,message);
         System.out.println("sent to queue: " + message);
     }
 

@@ -1,6 +1,6 @@
 package com.yzf.demo.rabbitmq.topic;
 
-import com.yzf.demo.rabbitmq.RabbitCommon;
+import com.yzf.demo.rabbitmq.MQConst;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -21,11 +21,11 @@ public class TopicRabbitConfig {
 
     @Bean
     public Queue queueOne(){
-        return new Queue(RabbitCommon.TOPIC_QUEUE_ONE);
+        return new Queue(MQConst.TOPIC_QUEUE_ONE);
     }
     @Bean
     public Queue queueTwo(){
-        return new Queue(RabbitCommon.TOPIC_QUEUE_TWO);
+        return new Queue(MQConst.TOPIC_QUEUE_TWO);
     }
 
     /**
@@ -34,7 +34,7 @@ public class TopicRabbitConfig {
      */
     @Bean
     public TopicExchange topicExchange(){
-        return new TopicExchange(RabbitCommon.TOPIC_EXCHANGE);
+        return new TopicExchange(MQConst.TOPIC_EXCHANGE);
     }
 
     /**
@@ -45,10 +45,10 @@ public class TopicRabbitConfig {
      */
     @Bean
     public Binding queueBindTopicExchangeOne(Queue queueOne,TopicExchange topicExchange) {
-        return BindingBuilder.bind(queueOne).to(topicExchange).with(RabbitCommon.TOPIC_BINDING_KEY_ONE);
+        return BindingBuilder.bind(queueOne).to(topicExchange).with(MQConst.TOPIC_BINDING_KEY_ONE);
     }
     @Bean
     public Binding queueBindTopicExchangeTwo(Queue queueTwo,TopicExchange topicExchange) {
-        return BindingBuilder.bind(queueTwo).to(topicExchange).with(RabbitCommon.TOPIC_BINDING_KEY_TWO);
+        return BindingBuilder.bind(queueTwo).to(topicExchange).with(MQConst.TOPIC_BINDING_KEY_TWO);
     }
 }

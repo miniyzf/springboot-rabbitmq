@@ -1,6 +1,6 @@
 package com.yzf.demo.rabbitmq.fanout;
 
-import com.yzf.demo.rabbitmq.RabbitCommon;
+import com.yzf.demo.rabbitmq.MQConst;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
@@ -22,15 +22,15 @@ public class FanoutRabbitConfig {
      */
     @Bean
     public Queue fanoutQueueOne(){
-        return new Queue(RabbitCommon.FANOUT_QUEUE_ONE);
+        return new Queue(MQConst.FANOUT_QUEUE_ONE);
     }
     @Bean
     public Queue fanoutQueueTwo(){
-        return new Queue(RabbitCommon.FANOUT_QUEUE_TWO);
+        return new Queue(MQConst.FANOUT_QUEUE_TWO);
     }
     @Bean
     public Queue fanoutQueueThree(){
-        return new Queue(RabbitCommon.FANOUT_QUEUE_THREE);
+        return new Queue(MQConst.FANOUT_QUEUE_THREE);
     }
 
     /**
@@ -38,7 +38,7 @@ public class FanoutRabbitConfig {
      */
     @Bean
     public FanoutExchange fanoutExchange(){
-        return new FanoutExchange(RabbitCommon.FANOUT_EXCHANGE);
+        return new FanoutExchange(MQConst.FANOUT_EXCHANGE);
     }
 
     /**
