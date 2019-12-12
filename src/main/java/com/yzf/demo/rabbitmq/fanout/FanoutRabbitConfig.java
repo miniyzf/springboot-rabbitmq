@@ -43,6 +43,7 @@ public class FanoutRabbitConfig {
 
     /**
      * 绑定队列到交换机
+     * fanoutQueueOne 必须与声明队列方法名 fanoutQueueOne 相同
      */
     @Bean
     public Binding fanoutBindingQueueOneToExchange(Queue fanoutQueueOne,FanoutExchange fanoutExchange){

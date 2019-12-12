@@ -17,13 +17,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TopicRabbitConfig {
 
-
-
     @Bean
     public Queue queueOne(){
         return new Queue(MQConst.TOPIC_QUEUE_ONE);
     }
-    @Bean
+    //@Bean
     public Queue queueTwo(){
         return new Queue(MQConst.TOPIC_QUEUE_TWO);
     }
@@ -47,7 +45,7 @@ public class TopicRabbitConfig {
     public Binding queueBindTopicExchangeOne(Queue queueOne,TopicExchange topicExchange) {
         return BindingBuilder.bind(queueOne).to(topicExchange).with(MQConst.TOPIC_BINDING_KEY_ONE);
     }
-    @Bean
+    //@Bean
     public Binding queueBindTopicExchangeTwo(Queue queueTwo,TopicExchange topicExchange) {
         return BindingBuilder.bind(queueTwo).to(topicExchange).with(MQConst.TOPIC_BINDING_KEY_TWO);
     }

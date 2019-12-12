@@ -19,6 +19,7 @@ public class MQConst {
     public final static String TOPIC_EXCHANGE = "topic_exchange_name";
     public final static String TOPIC_QUEUE_ONE = "topic_queue_one";
     public final static String TOPIC_QUEUE_TWO = "topic_queue_two";
+    public final static String TOPIC_QUEUE_THREE = "topic_queue_three";
     public final static String TOPIC_BINDING_KEY_ONE = "topic.message";
     public final static String TOPIC_BINDING_KEY_TWO = "topic.#";
     public final static String TOPIC_ROUTING_KEY_ONE = "topic.message";
