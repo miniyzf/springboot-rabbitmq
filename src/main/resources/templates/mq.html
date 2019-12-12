@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>mq</title>
+</head>
+<body>
+
+<h1><label>访问页面地址</label><span th:class="self">http://localhost:8080/mq</span></h1>
+<h2><label>推送消息地址</label><span>http://localhost:8080/exchange/topic?message=11111115</span></h2>
+<h2><label>推送消息地址</label><span>http://localhost:8080/queue/send?msg=11111114</span></h2>
+
+<script th:src="@{/static/js/jquery.min.js}"></script>
+<script th:src="@{/static/js/stomp.min.js}"></script>
+<script>
+    var client;
+    function mqConnect() {
+        var mqws = new WebSocket('ws://localhost:15674/ws');
+        var client = Stomp.over(mqws);
+
+        // SockJS does not support heart-beat: disable heart-beats
+        // client.heartbeat.outgoing = 0;
+        // client.heartbeat.incoming = 0;
+
+        var on_connect = function() {
+            console.log('connected');
+            // 目的地 /exchange/交换机名/路由键   自动创建非持久、自动删除队列 stomp-subscription-IIvZiR42TL2AJKVT6eKrnw
+            client.subscribe("/exchange/topic_exchange_name/topic.message", function(data) {
+                var msg = data.body;
+                console.log(msg);
+            });
+
+            // 创建持久化、不自动删除队列 new_queue
+            // durable (aliased as persistent)：持久化
+            // auto-delete：自动删除
+            // exclusive：独占
+            client.subscribe("/exchange/topic_exchange_name/topic.msg", function(data) {
+                var msg = data.body;
+                console.log(msg);
+            },{
+                'x-queue-name': 'new_queue',
+                'durable': true,
+                'auto-delete':false
+            });
+
+            client.subscribe("/queue/queue_zero", function(data) {
+                var msg = data.body;
+                console.log(msg);
+            });
+        };
+        var on_error =  function() {
+            console.log('error');
+            setTimeout(function () {
+                mqConnect();
+            },3000);
+        };
+        client.connect('guest','guest',on_connect,on_error,'/');
+
+        // 推送消息到 RabbitMQ
+        $('.self').on('click',function () {
+            var msg = '测试发送的消息';
+            client.send("/exchange/topic_exchange_name/topic.msg", {},msg);
+        })
+    }
+    mqConnect();
+
+</script>
+</body>
+</html>
