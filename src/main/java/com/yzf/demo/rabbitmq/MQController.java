@@ -11,13 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.websocket.server.PathParam;
 
 /**
- * MQConstroller
+ * MQController
  *
  * @author Administrator
  * @date 2019/12/12
  */
 @Controller
-public class MQConstroller {
+public class MQController {
     @GetMapping("/mq")
     public ModelAndView goMq(){
         ModelAndView mav = new ModelAndView("mq");
