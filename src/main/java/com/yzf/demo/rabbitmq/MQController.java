@@ -33,7 +33,7 @@ public class MQController {
         return message;
     }
 
-    @RequestMapping("/exchange/topic")
+    @RequestMapping("/exchange/topic2")
     public @ResponseBody String sendTopicMsg(@PathParam("msg")String msg){
         topicProducer.sendRoutingKeyTwo(msg);
         return msg;
