@@ -1,8 +1,12 @@
 package com.yzf.demo.rabbitmq.topic;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.yzf.demo.rabbitmq.MQConst;
 import org.springframework.amqp.rabbit.annotation.*;
 import org.springframework.stereotype.Component;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * TopicReceiver
@@ -45,5 +49,23 @@ public class TopicReceiver {
     @RabbitHandler
     public void process3(String message) {
         System.out.println("Three Received: " + message);
+    }
+
+
+
+    public static void main(String[] args) {
+        String s = "97,100,115,102,49,50,51,52,44,46,47,64,-26,-75,-117,-24,-81,-107,-27,-113,-111,-23,-128,-127,-25,-102,-124,-26,-74,-120,-26,-127,-81";
+        String[] strs = s.split(",");
+        int len = strs.length;
+        byte[] bytes = new byte[len];
+        for (int i = 0; i < len; i++) {
+            bytes[i] = Byte.parseByte(strs[i]);
+        }
+        try {
+            String str = new String(bytes,"UTF-8");
+            System.out.println(str);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

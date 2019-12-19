@@ -18,10 +18,12 @@
         var mqws = new WebSocket('ws://localhost:15674/ws');
         var client = Stomp.over(mqws);
 
+        // heart-beating 频率(默认10000ms，设为0ms时会断链)：outgoing 发送频率 incoming 接收频率
         // SockJS does not support heart-beat: disable heart-beats
-        // client.heartbeat.outgoing = 0;
-        // client.heartbeat.incoming = 0;
-
+        client.heartbeat.outgoing = 20000;
+        client.heartbeat.incoming = 0;
+        // 关闭控制台调试数据
+        client.debug = null;
         var on_connect = function() {
             console.log('connected');
             // 目的地 /exchange/交换机名/路由键   自动创建非持久、自动删除队列 stomp-subscription-IIvZiR42TL2AJKVT6eKrnw
@@ -59,9 +61,10 @@
 
         // 推送消息到 RabbitMQ
         $('.self').on('click',function () {
-            var msg = '测试发送的消息';
+            // 后端注解接收： 97,100,115,102,49,50,51,52,44,46,47,64,-26,-75,-117,-24,-81,-107,-27,-113,-111,-23,-128,-127,-25,-102,-124,-26,-74,-120,-26,-127,-81
+            var msg = 'adsf1234,./@测试发送的消息';
             client.send("/exchange/topic_exchange_name/topic.msg", {},msg);
-        })
+        });
     }
     mqConnect();
 
